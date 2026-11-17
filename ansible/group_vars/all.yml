@@ -1,0 +1,16 @@
+---
+# Server tərəfdəki qovluq
+project_dir: /opt/uni-devops-lab
+
+# Image
+image_name: student-portal
+image_tag: "1.0"
+
+# Host-da açılan port (konteyner daxilində 5000-dir)
+portal_port: 8080
+
+# Layihənin lokal (control node) kökü
+repo_root: "{{ playbook_dir }}/.."
+
+# Docker apt arxitekturası
+docker_apt_arch: "{{ 'arm64' if ansible_architecture in ['aarch64', 'arm64'] else 'amd64' }}"
