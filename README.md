@@ -56,6 +56,8 @@ Port, image adı və qovluq yolu `ansible/group_vars/all.yml` faylındakı dəyi
 
 Portal konteynerdə Redis-ə qoşula bilmirdi (`Connection refused`). Səbəb: kod `REDIS_HOST` dəyişəni olmadıqda `localhost`-a qoşulur, konteynerin daxilində isə `localhost` Redis deyil, portalın özüdür. Həll: `compose.yml`-də `REDIS_HOST: redis` verildi (Compose servisi adı ilə DNS) və portal Redis-in `healthcheck`-i keçməsini gözləyir.
 
+Birinci Ansible deployunda `Start portal and Redis with Docker Compose` tapşırığı `No such image: redis:7-alpine` xətası ilə uğursuz oldu. Səbəb: playbook-da `pull: never` verilmişdi, yəni Docker heç bir image yükləmirdi; portal image-i serverdə build edilirdi, lakin Redis hazır image-dir və serverdə yox idi. Həll: `pull: never` əvəzinə `pull: missing` yazıldı. Beləliklə image yalnız yoxdursa yüklənir və playbook ikinci icrada yenə `changed=0` göstərir.
+
 ## Təhlükəsizlik
 
 Repository-də parol, token və private key yoxdur. `.env`, `*.log` və açar faylları `.gitignore` ilə kənarlaşdırılıb.
