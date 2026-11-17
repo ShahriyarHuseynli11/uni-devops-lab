@@ -103,7 +103,7 @@
         files:
           - compose.yml
         state: present
-        pull: never
+        pull: missing
         # Yalnız kod/Dockerfile dəyişəndə yenidən build et (idempotentlik üçün)
         build: "{{ 'always' if (dockerfile_copy.changed or app_copy.changed) else 'policy' }}"
 
